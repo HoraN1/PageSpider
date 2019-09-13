@@ -8,11 +8,19 @@ date: 2019/9/13 11:25
 
 import os
 import argparse
+from utilities import url_utilities
 
 
 def main(database: str, url_list_file: str):
+    big_world_list = []
     print("We are working with " + database)
     print("We are going to scan " + url_list_file)
+    urls = url_utilities.load_urls_from_file(url_list_file)
+    for url in urls:
+        print("reading " + url)
+        page_content = url_utilities.load_page(url=url)
+        words = url_utilities.scrape_page(page_contents=page_content)
+        big_world_list.extend(words)
 
 
 if __name__ == "__main__":
